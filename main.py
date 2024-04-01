@@ -1,13 +1,26 @@
-# This is a sample Python script.
+# install scraper
 
-value = 42
-answer = 'answer'
-print(answer, 'is', value)
-print(answer, 'is', value, sep='__')
-print(answer, 'is', value, sep='_', end='!')
-print(' <- this is not the beginning of the line', end='!\n')
-print('<- this is a new line')
+import requests as req
+import pandas as pd
+from bs4 import BeautifulSoup
+import csv
 
+#load website data
+
+url = 'https://api.open-meteo.com/v1/dwd-icon?latitude=47.262691&longitude=11.3947&hourly=temperature_2m,relative_humidity_2m,rain,wind_speed_10m&timezone=Europe%2FBerlin&past_days=7'
+response = req.get(url)
+data = response.json()
+
+# Daten in CSV speichern
+
+weather_data = response.json()["hourly"] #(siehe Landing Page Wetterseite)
+df = pd.DataFrame(weather_data)
+
+# CSV-Datei als Excel speichern
+df.to_csv('weather_data.csv', index=False)
+
+
+print("Die Daten wurden erfolgreich als 'wetterdaten.csv' gespeichert.")
 
 # Press the green button in the gutter to run the script.
 #if __name__ == '__main__':
