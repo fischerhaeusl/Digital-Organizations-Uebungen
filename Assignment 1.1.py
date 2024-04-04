@@ -2,21 +2,25 @@
 
 import requests
 from bs4 import BeautifulSoup
-import re
 
 # URL der Seite, die Sie abrufen möchten
 url = 'https://bdornauer.github.io/uibk_sales_shop'
 
 # Abrufen der Inhalte der Webseite
-response = requests.get(url)
-html_content = response.text
+data = requests.get(url)
+
 
 # Verarbeitung des HTML-Inhalts mit BeautifulSoup
-soup = BeautifulSoup(html_content, 'html.parser')
+html = BeautifulSoup(data.text, 'html.parser')
+articles = html.select('.product-section')
 
-# Finden aller Elemente mit Preisen
-prices = soup.find_all(text=re.compile(r'€'))
+#print(articles[0])
 
-# Extrahieren und Ausdrucken der gefundenen Preise
-for price in prices:
-    print(price)
+#create empty list
+extracted_article_information = []
+
+for article in articles:
+    title = article.select(' .product-name')[0].get_text()
+
+for article in extracted_article_information:
+    print("title: ", article["title"])
