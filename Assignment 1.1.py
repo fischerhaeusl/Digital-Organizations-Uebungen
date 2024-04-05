@@ -21,6 +21,15 @@ extracted_article_information = []
 
 for article in articles:
     title = article.select(' .product-name')[0].get_text()
+    original_price = article.select(' .product-original-price')[0].get_text()
+    Discounted_prices = article.select(' .product-discounted-price')[0].get_text()
+    Image_URL = article.select(' .product-img')[0]["src"]
+
+    extracted_article_information.append({"title": title, "original price": original_price, "Discounted price": Discounted_prices, "Image URL": Image_URL})
 
 for article in extracted_article_information:
-    print("title: ", article["title"])
+    print("title: ", article['title'])
+    print("original price: ", article['original price'])
+    print("Discounted price: ", article['Discounted price'])
+    print("Image URL: ", article['Image URL'])
+    print("\n")
