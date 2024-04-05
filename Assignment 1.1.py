@@ -1,5 +1,4 @@
-
-
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
@@ -33,3 +32,8 @@ for article in extracted_article_information:
     print("Discounted price: ", article['Discounted price'])
     print("Image URL: ", article['Image URL'])
     print("\n")
+
+df = pd.DataFrame(extracted_article_information)
+print(df)
+speicherort = "C:\\Users\\Adrian\\OneDrive - uibk.ac.at\\Digital Organisations_AS\\extracted_articles.csv"
+df.to_csv(speicherort, index=False)
